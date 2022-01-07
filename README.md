@@ -34,7 +34,7 @@ Put the content inside &lt;msc-sidebar /> as its child. When &lt;msc-sidebar /> 
     }
   </script>
 
-  <-- content node, add slot="content" to it. -->
+  <!-- content node, add slot="content" to it. -->
   <nav slot="content">
     ...
   </nav>
@@ -45,7 +45,7 @@ Or set attributes directly.
 
 ```html
 <msc-sidebar side="left">
-  <-- content node, add slot="content" to it. -->
+  <!-- content node, add slot="content" to it. -->
   <nav slot="content">
     ...
   </nav>
@@ -56,7 +56,7 @@ Otherwise, developers could also choose remoteconfig to fetch config for
 
 ```html
 <msc-sidebar remoteconfig="https://your-domain/api-path">
-  <-- content node, add slot="content" to it. -->
+  <!-- content node, add slot="content" to it. -->
   <nav slot="content">
     ...
   </nav>
@@ -73,7 +73,7 @@ Otherwise, developers could also choose remoteconfig to fetch config for
 <script type="module">
 import { MscSidebar } from 'https://your-domain/wc-msc-sidebar.js';
 
-//use DOM api
+// use DOM api
 const nodeA = document.createElement('msc-sidebar');
 document.body.appendChild(nodeA);
 nodeA.side = "right";
