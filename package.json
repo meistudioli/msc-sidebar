@@ -1,0 +1,25 @@
+{
+  "name": "msc-sidebar",
+  "version": "1.0.0",
+  "description": "A sidebar provides a way to display meta content intended for temporary access (navigation links, buttons, menus, etc.). The sidebar can be revealed by a button tap while the main content remains visually underneath.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meistudioli/msc-sidebar.git"
+  },
+  "keywords": [
+    "web",
+    "front-end",
+    "web component",
+    "sidebar"
+  ],
+  "author": "Paul Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meistudioli/msc-sidebar/issues"
+  },
+  "homepage": "https://github.com/meistudioli/msc-sidebar#readme"
+}

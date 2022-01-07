@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Web Component: &ly;msc-sidebar /&gt; - web components based sidebar effect</title>
+<meta name="description" content="A sidebar provides a way to display meta content intended for temporary access (navigation links, buttons, menus, etc.). The sidebar can be revealed by a button tap while the main content remains visually underneath." />
+<script type="module" src="mjs/wc-msc-sidebar.js"></script>
+<style>
+/* reset */
+div,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,legend,input,textarea,p,article,aside,figcaption,figure,nav,section,mark,audio,video,main{margin:0;padding:0}
+article,aside,figcaption,figure,nav,section,main{display:block}
+fieldset,img{border:0}
+address,caption,cite,em,strong{font-style:normal;font-weight:400}
+ol,ul{list-style:none}
+caption{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400}
+abbr{border:0;font-variant:normal}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+body{-webkit-text-size-adjust:none}
+select,input,button,textarea{font:100% arial,helvetica,clean,sans-serif;}
+del{font-style:normal;text-decoration:none}
+pre{font-family:monospace;line-height:100%}
+progress{-webkit-appearance:none;appearance:none;overflow:hidden;border:0 none;}
+
+/* page */
+html,body{font-family:system-ui,sans-serif;text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:16px;}
+#hd,#ft{display:none;}
+.stuff{text-indent:100%;white-space:nowrap;overflow:hidden;}
+
+body{position:relative;inline-size:100vw;block-size:100vh;}
+
+/* msc-sidebar */
+msc-sidebar:not(:defined){visibility:hidden;}
+.demo {
+  position:absolute;
+  inset-inline-start:50%;
+  inset-block-start:50%;
+  inline-size: 80vw;
+  transform:translate(-50%,-50%);
+
+  inline-size: 100%;
+  max-inline-size: 460px;
+  background-color:#fff;
+  padding:2em;
+  border-radius:.5em;
+  box-sizing: border-box;
+  margin:2em auto;
+}
+
+.trigger{font-size:1.125em;color:#b60845;width:100%;height:2.77em;line-height:2.55;box-sizing:border-box;border:2px solid #b60845;border-radius:2.77em;text-align:center;text-transform:uppercase;transition:color 250ms ease,border-color 250ms ease;will-change:color,border-color;cursor:pointer;letter-spacing:.2em;display:block;user-select:none;text-decoration:none}
+.trigger:hover{font-weight:400;color:#db004d;border-color:#db004d;}
+.trigger{--ripple-color:rgba(182,8,69,.2);--duration:1.2s;}
+
+.trigger:nth-of-type(1){color:#4a8af1;border-color:#4a8af1;--ripple-color:rgba(74,138,241,.2);}
+.trigger:nth-of-type(1):hover{color:#1b71fa;border-color:#1b71fa;}
+
+.trigger:nth-of-type(2){color:#b60845;border-color:#b60845;--ripple-color:rgba(112,58,217,.2);}
+.trigger:nth-of-type(2):hover{color:#db004d;border-color:#db004d;}
+
+#demo-msc-sidebar {
+  --msc-sidebar-background: var(--nav-bg);
+}
+
+#demo-msc-sidebar nav {
+  --background: url(https://blog.lalacube.com/mei/img/yau/ico-close-black.svg) no-repeat 50% / 30% auto;
+  position: relative;
+}
+.demo-msc-sidebar__close{position:absolute;right:0;top:0;width:72px;height:72px;background:var(--background);}
+
+/* nav */
+:root {
+  --el:0;
+  --et:0;
+  --eb:0;
+
+  --nav-bg:#fff;
+  --nav-title:#202124;
+  --nav-p:#202124;
+  --nav-border:#e0e0e0;
+  --nav-a:#5f6368;
+  --nav-a-text-hover:#202124;
+  --nav-a-bg-hover:rgba(0,0,0,.04);
+}
+
+nav{inline-size:420px;display:block;background-color:var(--nav-bg);}
+nav>*{background-color:var(--nav-bg);}
+.nav__brand__title{font-family:"Roboto Mono",monospace;color:var(--nav-title);font-weight:400;line-height:2;text-transform:uppercase;padding:1.25em 1.5em;}
+.nav__section{border-top:1px solid var(--nav-border);}
+.nav__section__p{font-size:1.125em;line-height:1.5;color:var(--nav-p);padding:2.22em 1.33em 1.25em;}
+.nav__section__ul{display:block;margin-bottom:2.5em;}
+.nav__section__a{font-size:.875em;color:var(--nav-a);line-height:1.2857;display:block;padding:.857em 1.714em;text-decoration:none;transition:background 200ms ease;--ripple-duration:1.5s;}
+.nav__section__a:hover{color:var(--nav-a-text-hover);font-weight:400;background-color:var(--nav-a-bg-hover);}
+.nav__section:nth-last-of-type(1){padding-bottom:var(--eb);} 
+msc-sidebar:not(:defined){visibility:hidden;height:0;overflow:hidden;}
+
+.site_nav{--msc-sidebar-background:var(--nav-bg);}
+@media screen and (max-width: 767px) {
+  nav{inline-size:70vw;}
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --nav-bg:#1e1e1e;
+    --nav-title:#e8eaed;
+    --nav-p:#e8eaed;
+    --nav-border:#3f4042;
+    --nav-a:#bfbfc0;
+    --nav-a-text-hover:#e7e9ec;
+    --nav-a-bg-hover:#323639;
+  }
+
+  #demo-msc-sidebar nav {
+    --background: url(https://blog.lalacube.com/mei/img/yau/ico-close.svg) no-repeat 50% / 30% auto;
+  }
+}
+
+/*support*/
+@supports (bottom:env(safe-area-inset-top)) {
+  :root {
+    --el: env(safe-area-inset-left);
+    --eb: env(safe-area-inset-bottom);
+    --et: env(safe-area-inset-top,0px);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="demo">
+  <a class="trigger">
+    open sidebar
+  </a>
+</div>
+
+<msc-sidebar id="demo-msc-sidebar" side="right">
+  <nav slot="content">
+    <p class="nav__brand__title">Sidebar Demo</p>
+    <div class="nav__section">
+      <p class="nav__section__p">section a</p>
+      <ul class="nav__section__ul">
+        <li>
+          <a href="#dummyLink" class="nav__section__a">Dummy Link a</a>
+        </li>
+        <li>
+          <a href="#dummyLink" class="nav__section__a">Dummy Link b</a>
+        </li>
+        <li>
+          <a href="#dummyLink" class="nav__section__a">Dummy Link c</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav__section">
+      <p class="nav__section__p">section b</p>
+      <ul class="nav__section__ul">
+        <li>
+          <a href="#dummyLink" class="nav__section__a">Dummy Link a</a>
+        </li>
+        <li>
+          <a href="#dummyLink" class="nav__section__a">Dummy Link b</a>
+        </li>
+        <li>
+          <a href="#dummyLink" class="nav__section__a">Dummy Link c</a>
+        </li>
+      </ul>
+    </div>
+    <a class="demo-msc-sidebar__close stuff">close</a>
+  </nav>
+</msc-sidebar>
+
+<script>
+customElements.whenDefined('msc-sidebar').then(
+  () => {
+    const trigger = document.querySelector('.trigger');
+    const sidebar = document.querySelector('#demo-msc-sidebar');
+    const btnClose = sidebar.querySelector('.demo-msc-sidebar__close');
+
+    trigger.addEventListener('click',
+      () => {
+        sidebar.toggle();
+      }
+    );
+
+    btnClose.addEventListener('click',
+      (evt) => {
+        evt.preventDefault();
+        sidebar.toggle(false);
+      }
+    );
+
+    sidebar.addEventListener('msc-sidebar-change',
+      (evt) => {
+        const { detail:{ stat } } = evt;
+        console.log(`event > msc-sidebar-change: ${stat}.`);
+      }
+    )
+  }
+);
+</script>
+
+</body>
+
+</html>
