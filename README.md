@@ -94,7 +94,7 @@ const config = {
   open: false,
   side: "right"
 };
-const nodeC = new MscStretchTextarea(config);
+const nodeC = new MscSidebar(config);
 document.body.appendChild(nodeC);
 nodeC.appendChild(
   document.querySelector(".your-content-node")
